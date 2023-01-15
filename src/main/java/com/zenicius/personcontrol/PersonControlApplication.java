@@ -2,6 +2,7 @@ package com.zenicius.personcontrol;
 
 import com.zenicius.personcontrol.services.AddressService;
 import com.zenicius.personcontrol.services.PersonService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+@Hidden
 public class PersonControlApplication {
 
 	@Autowired

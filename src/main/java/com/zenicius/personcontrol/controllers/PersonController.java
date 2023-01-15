@@ -6,7 +6,10 @@ import com.zenicius.personcontrol.models.AddressModel;
 import com.zenicius.personcontrol.models.PersonModel;
 import com.zenicius.personcontrol.services.AddressService;
 import com.zenicius.personcontrol.services.PersonService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +23,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/persons")
+@Tag(name = "Persons")
 public class PersonController {
 
     private final PersonService personService;
@@ -50,7 +54,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<PersonModel>> getAll(Pageable pageable) {
+    @PageableAsQueryParam
+    public ResponseEntity<Page<PersonModel>> getAll(@Parameter(hidden = true) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(personService.findAll(pageable));
     }
 
@@ -60,7 +65,8 @@ public class PersonController {
     }
 
     @GetMapping("/{id}/addresses")
-    public ResponseEntity<Page<AddressModel>> getAddresses(@PathVariable(value = "id") UUID id, Pageable pageable) {
+    @PageableAsQueryParam
+    public ResponseEntity<Page<AddressModel>> getAddresses(@PathVariable(value = "id") UUID id, @Parameter(hidden = true) Pageable pageable) {
         PersonModel person = personService.findById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(addressService.findAllByOwner(person, pageable));
