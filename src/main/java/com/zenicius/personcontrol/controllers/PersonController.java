@@ -79,6 +79,13 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.OK).body(address);
     }
 
+    @GetMapping("/{id}/main-address")
+    public ResponseEntity<Object> getMainAddress(@PathVariable(value = "id") UUID id) {
+        PersonModel person = personService.findById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(person.getMainAddress());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid PersonDTO personDTO) {
         PersonModel person = personService.findById(id);
@@ -104,7 +111,7 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.OK).body(addressService.save(updatedAddress));
     }
 
-    @PutMapping("{id}/addresses/{addressId}/main")
+    @PutMapping("{id}/main-address/{addressId}")
     public ResponseEntity<Object> updateMainAddress(@PathVariable(value = "id") UUID id, @PathVariable(value = "addressId") UUID addressId) {
         PersonModel person = personService.findById(id);
         AddressModel address = addressService.findById(id, addressId);

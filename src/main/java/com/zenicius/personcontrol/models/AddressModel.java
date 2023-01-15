@@ -91,7 +91,7 @@ public class AddressModel {
     }
 
     public void prepareForDelete() {
-        if(owner.getMainAddress() != null)
+        if (owner.getMainAddress() != null)
             owner.getAddresses().remove(this);
 
         if (owner.getMainAddress() != null && owner.getMainAddress() == this)

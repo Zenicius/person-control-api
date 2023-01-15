@@ -188,7 +188,7 @@ public class PersonControllerTest {
         UUID personID = testPerson.getId();
         UUID addressID = testAddress.getId();
 
-        mockMvc.perform(put("/persons/{id}/addresses/{addressId}/main", personID, addressID))
+        mockMvc.perform(put("/persons/{id}/main-address/{addressId}", personID, addressID))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
